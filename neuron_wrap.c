@@ -2669,9 +2669,9 @@ static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
 
 
    %define SWIG_FILE_WITH_INIT
-   %include "neuron.h"
-   %include "vectord.h"
-   %include "utilities.h"
+   #include "neuron.h"
+   #include "vectord.h"
+   #include "utilities.h"
 
 
   #define SWIG_From_double   PyFloat_FromDouble 
@@ -2882,7 +2882,7 @@ SWIG_FromCharPtr(const char *cptr)
 #ifdef __cplusplus
 extern "C" {
 #endif
-SWIGINTERN PyObject *_wrap_dotProduct(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_vectorDotProduct(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   vector arg1 ;
   vector arg2 ;
@@ -2893,14 +2893,14 @@ SWIGINTERN PyObject *_wrap_dotProduct(PyObject *SWIGUNUSEDPARM(self), PyObject *
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "dotProduct", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "vectorDotProduct", 2, 2, swig_obj)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_vector,  0 );
     if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "dotProduct" "', argument " "1"" of type '" "vector""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "vectorDotProduct" "', argument " "1"" of type '" "vector""'"); 
     }  
     if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "dotProduct" "', argument " "1"" of type '" "vector""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "vectorDotProduct" "', argument " "1"" of type '" "vector""'");
     } else {
       arg1 = *((vector *)(argp1));
     }
@@ -2908,15 +2908,15 @@ SWIGINTERN PyObject *_wrap_dotProduct(PyObject *SWIGUNUSEDPARM(self), PyObject *
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_vector,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "dotProduct" "', argument " "2"" of type '" "vector""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "vectorDotProduct" "', argument " "2"" of type '" "vector""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "dotProduct" "', argument " "2"" of type '" "vector""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "vectorDotProduct" "', argument " "2"" of type '" "vector""'");
     } else {
       arg2 = *((vector *)(argp2));
     }
   }
-  result = (double)dotProduct(arg1,arg2);
+  result = (double)vectorDotProduct(arg1,arg2);
   resultobj = SWIG_From_double((double)(result));
   return resultobj;
 fail:
@@ -3421,7 +3421,7 @@ fail:
 
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
-	 { "dotProduct", _wrap_dotProduct, METH_VARARGS, NULL},
+	 { "vectorDotProduct", _wrap_vectorDotProduct, METH_VARARGS, NULL},
 	 { "main", _wrap_main, METH_NOARGS, NULL},
 	 { "vector_items_set", _wrap_vector_items_set, METH_VARARGS, NULL},
 	 { "vector_items_get", _wrap_vector_items_get, METH_O, NULL},

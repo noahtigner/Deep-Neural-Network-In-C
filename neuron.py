@@ -62,8 +62,8 @@ class _SwigNonDynamicMeta(type):
 
 
 
-def dotProduct(v1: "vector", v2: "vector") -> "double":
-    return _neuron.dotProduct(v1, v2)
+def vectorDotProduct(v1: "vector", v2: "vector") -> "double":
+    return _neuron.vectorDotProduct(v1, v2)
 
 def main() -> "int":
     return _neuron.main()

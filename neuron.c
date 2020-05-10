@@ -3,22 +3,9 @@
 #include <math.h>
 
 #include "neuron.h"
-#include "vectord.h"
+#include "vector.h"
+#include "matrix.h"
 #include "utilities.h"
-
-double vectorDotProduct(vector v1, vector v2) {
-    int length = VECTOR_TOTAL(v1);
-    if(length != VECTOR_TOTAL(v2)) {
-        printf("%sWarning: vector lengths match%s\n", YELLOW, RESET);
-        return ERROR_CODE;
-    }
-
-    double dp = 0.0;
-    for(int i = 0; i < length; i++) {
-        dp += VECTOR_GET(v1, i) * VECTOR_GET(v2, i);
-    }
-    return dp;
-}
 
 // TODO: matrix (vector of vectors)
 // TODO: transpose matrix funtion
@@ -26,9 +13,19 @@ double vectorDotProduct(vector v1, vector v2) {
 
 int main() {
 
-    double in[4] = {1, 2, 3, 2.5};
-    VECTOR_INIT(inputs);
-    VECTOR_ADD_MANY(inputs, in);
+    double in[3][4] = {{1.0, 2.0, 3.0, 2.5},
+                       {2.0, 5.0, -1.0, 2.0},
+                       {-1.5, 2.7, 3.3, -0.8}};
+    VECTOR_INIT(inputs1);
+    VECTOR_INIT(inputs2);
+    VECTOR_INIT(inputs3);
+    VECTOR_ADD_MANY(inputs1, in[0]);
+    VECTOR_ADD_MANY(inputs2, in[1]);
+    VECTOR_ADD_MANY(inputs3, in[2]);
+    MATRIX_INIT(inputs);
+    MATRIX_ADD(inputs, inputs1);
+    MATRIX_ADD(inputs, inputs2);
+    MATRIX_ADD(inputs, inputs3);
 
     double w1[4] = {0.2, 0.8, -0.5, 1.0};
     VECTOR_INIT(weights1);
@@ -46,17 +43,43 @@ int main() {
     VECTOR_INIT(biases);
     VECTOR_ADD_MANY(biases, bs);
 
-    double output[3] = {
-        vectorDotProduct(inputs, weights1) + VECTOR_GET(biases, 0),
-        vectorDotProduct(inputs, weights2) + VECTOR_GET(biases, 1),
-        vectorDotProduct(inputs, weights3) + VECTOR_GET(biases, 2),
-    };
-    printf("\n%f, %f, %f\n", output[0], output[1], output[2]);
+    // double output[3] = {
+    //     vector_dot_product(inputs, weights1) + VECTOR_GET(biases, 0),
+    //     vector_dot_product(inputs, weights2) + VECTOR_GET(biases, 1),
+    //     vector_dot_product(inputs, weights3) + VECTOR_GET(biases, 2),
+    // };
+    // printf("%f, %f, %f\n\n", output[0], output[1], output[2]);
 
-    VECTOR_FREE(inputs);
-    VECTOR_FREE(weights1);
-    VECTOR_FREE(weights2);
-    VECTOR_FREE(weights3);
+
+
+    MATRIX_INIT(weights);
+    MATRIX_ADD(weights, weights1);
+    MATRIX_ADD(weights, weights2);
+    MATRIX_ADD(weights, weights3);
+    // MATRIX_DELETE(m, 0);
+    MATRIX_PRINT(weights);
+    MATRIX_PRINT(inputs);
+
+    // VECTOR_FREE(inputs);
+    // VECTOR_FREE(weights1);
+    // VECTOR_FREE(weights2);
+    // VECTOR_FREE(weights3);
+    
+
+    MATRIX_TRANSPOSE(inputs, t);
+    MATRIX_PRINT(t);
+
+    // matrix outputs = MATRIX_MULTIPLICATION(weights, inputs);
+    matrix outputs = MATRIX_MULTIPLICATION(inputs, weights);
+    MATRIX_PRINT(outputs);
+    MATRIX_SCALE_BY_VECTOR(outputs, biases);
+    MATRIX_PRINT(outputs);
+
+
+    MATRIX_FREE(weights);
+    MATRIX_FREE(inputs);
+    MATRIX_FREE(t);
+    VECTOR_FREE(biases);
     
     return 0;
 }
