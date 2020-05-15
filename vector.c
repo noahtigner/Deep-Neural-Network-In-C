@@ -10,14 +10,19 @@ void vector_init(vector *v) {
     v->items = malloc(sizeof(double) * v->capacity);
 }
 
+void vector_fill_zeros(vector *v, int n_neurons) {
+    for(int i = 0; i < n_neurons; i++) {
+        vector_add(v, 0.0);
+    }
+}
+
 int vector_total(vector *v) {
     return v->total;
 }
 
 void vector_print(vector *v) {
-    // printf("v->total: %d\n", v->total);
     for(int i = 0; i < v->total; i++) {
-        printf("%f\t", (double) v->items[i]);
+        printf("%8.4lf\t", (double) v->items[i]);
     }
     printf("\n");
 }
@@ -50,6 +55,7 @@ void vector_add_many(vector *v, double items[], int length) {
 }
 
 void vector_set(vector *v, int index, double item) {
+    // printf("SET index: %d, double: %f\n", index, item);
     if (index >= 0 && index < v->total) {
         v->items[index] = item;
     }
@@ -59,6 +65,7 @@ void vector_set(vector *v, int index, double item) {
 }
 
 double vector_get(vector *v, int index) {
+    // printf("GET index: %d\n", index);
     if (index >= 0 && index < v->total) {
         return v->items[index];
     }
@@ -67,14 +74,15 @@ double vector_get(vector *v, int index) {
 }
 
 double vector_dot_product(vector v1, vector v2) {
-    int length = VECTOR_TOTAL(v1);
-    if(length != VECTOR_TOTAL(v2)) {
-        printf("%sWarning: vector lengths don't match%s\n", YELLOW, RESET);
+    int length1 = VECTOR_TOTAL(v1);
+    int length2 = VECTOR_TOTAL(v2);
+    if(length1 != length2) {
+        printf("%sWarning: vector lengths don't match (%d != %d)%s\n", YELLOW, length1, length2, RESET);
         return ERROR_CODE;
     }
 
     double dp = 0.0;
-    for(int i = 0; i < length; i++) {
+    for(int i = 0; i < length2; i++) {
         dp += VECTOR_GET(v1, i) * VECTOR_GET(v2, i);
     }
     return dp;
