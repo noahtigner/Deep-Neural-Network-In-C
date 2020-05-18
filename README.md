@@ -1,4 +1,14 @@
 
+A Deep Neural Network written in C with the standard library.
+
+# TODO:
+- Loss Calculation
+- Backpropagation & Optimization
+- Dataset Parsing (Python or C?)
+- Python Library
+
+# Build Python Package (not currently supported)
+
 .c, .h, .i
 setup.py
 
@@ -16,17 +26,3 @@ python3 main.py
 Test:
 gcc -o neuron neuron.c
 ./neuron
-
-
-Steps:
-- c -> Python
-- Neuron
-- Basic NN
-- Activaton Functions
-- Options (layers etc)
-
-
-
-
-- Neural Network written in C
-- Python wrapper
