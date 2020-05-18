@@ -1,5 +1,5 @@
 
-A Deep Neural Network written in C with the standard library.
+A Deep Neural Network written from scratch in C with the standard library.
 
 # TODO:
 - Loss Calculation
